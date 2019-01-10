@@ -4,8 +4,9 @@ import { match, not } from '@ember/object/computed';
 export default Controller.extend({
 
     emailAddress: '',
-    isValid: match('emailAddress', /^.+@.+\..+$/),
-    isDisabled: not('isValid'),
+    isValidEmail: match('emailAddress', /^.+@.+\..+$/),
+    isMessageEnoughLong: Ember.computed.gte('message.length', 5),
+    isValid: Ember.computed.and('isValidEmail', 'isMessageEnoughLong'),
 
   actions: {
     snedMessage() {
